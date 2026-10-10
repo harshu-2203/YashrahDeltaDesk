@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yashraj Delta Hedging | Stock Market & Options Trading</title>
+<meta name="description" content="Portfolio of Yashraj Delta Hedging: stock market analysis, options trading and delta hedging.">
+<meta property="og:title" content="Yashraj Delta Hedging | Stock Market & Options Trading">
+<meta property="og:description" content="Trading, options, market analysis and delta hedging.">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#05070D;--bg2:#0B1120;--card:#101827;--cy:#22d3ee;--em:#10b981;--up:#22C55E;--dn:#EF4444;--tx:#f1f5f9;--mu:#94a3b8;--bd:rgba(148,163,184,.16);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:70px;height:auto}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}*{-webkit-tap-highlight-color:transparent}canvas{outline:none;-webkit-user-select:none;user-select:none}#home,#cwrap{-webkit-user-select:none;user-select:none}a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
+:focus-visible{outline:2px solid var(--cy);outline-offset:3px}
+h1,h2,h3{line-height:1.15;margin:0}
+section{padding:96px 20px;position:relative}
+.wrap{max-width:1100px;margin:0 auto}
+.eyebrow{color:var(--cy);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px}
+h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:16px}
+.lead{color:var(--mu);max-width:640px}
+.ph{color:#fbbf24;border:1px dashed rgba(251,191,36,.5);border-radius:6px;padding:0 6px;font-size:.9em;white-space:nowrap}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--cy),var(--em));z-index:100}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:14px 20px;transition:.3s;padding-top:calc(14px + env(safe-area-inset-top,0px))}
+nav.s{padding-top:calc(8px + env(safe-area-inset-top,0px));padding-bottom:8px;background:rgba(11,17,32,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd)}
+nav .in{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:700;letter-spacing:.04em}.logo b{color:var(--cy)}
+.links{display:flex;gap:22px}
+.links a{color:var(--mu);font-size:.9rem;position:relative;padding:6px 0}
+.links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--cy);transition:.3s}
+.links a:hover,.links a.on{color:var(--tx)}.links a:hover::after,.links a.on::after{width:100%}
+#burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+#burger span{display:block;width:22px;height:2px;background:var(--tx);margin:5px auto;transition:.3s}
+#burger.o span:nth-child(1){transform:translateY(7px) rotate(45deg)}#burger.o span:nth-child(2){opacity:0}#burger.o span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:820px){#burger{display:block}.links{position:fixed;inset:0 0 auto 0;top:0;padding:80px 24px 24px;flex-direction:column;background:rgba(5,7,13,.96);backdrop-filter:blur(16px);transform:translateY(-110%);transition:.4s;gap:6px;z-index:-1}.links.o{transform:none}.links a{font-size:1.1rem;padding:12px 0}section{padding:72px 16px}}
+.btn{display:inline-block;padding:14px 26px;border-radius:12px;font-weight:600;border:1px solid var(--bd);transition:transform .2s,box-shadow .3s;min-height:48px}
+.btn.p{background:linear-gradient(135deg,var(--cy),#3b82f6);color:#04101c;border:0}
+.btn:hover{box-shadow:0 0 28px rgba(34,211,238,.35)}
+#home{height:170vh;padding:0}#about{margin-top:-38vh;padding-top:60px}.stick{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:70px}.hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:var(--mu);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;z-index:2}
+canvas.bg{position:absolute;inset:0;width:100%;height:100%;display:block}
+#home .wrap{position:relative;z-index:2;width:100%;pointer-events:none;will-change:opacity,transform}#home .wrap *{pointer-events:auto}
+#stage{position:relative}#cwrap{position:sticky;top:0;height:100vh;height:100svh;margin-bottom:-100vh;margin-bottom:-100svh;z-index:0;pointer-events:none;overflow:hidden}#home,#about{z-index:1}#cwrap::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,13,.85) 10%,transparent 70%);pointer-events:none;z-index:1;opacity:var(--ov,1)}
+h1{font-size:clamp(2.4rem,7vw,5rem);max-width:760px}
+h1 span{background:linear-gradient(90deg,var(--cy),var(--em));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tags{color:var(--mu);margin:18px 0;letter-spacing:.12em;font-size:.85rem;text-transform:uppercase}
+.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+@media(max-width:820px){#home{height:155vh}.stick{align-items:flex-start;padding-top:calc(46svh + 10px)}#cwrap canvas.bg{height:48svh;bottom:auto}#cwrap::after{background:linear-gradient(180deg,rgba(5,7,13,0) 25%,var(--bg) 48svh)}h1{font-size:clamp(2.1rem,10vw,3rem)}.cta .btn{flex:1 1 100%;text-align:center}.tags{font-size:.72rem}}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media(max-width:820px){.split{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:36px}
+.card{background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid var(--bd);border-radius:18px;padding:26px;transform-style:preserve-3d;transition:transform .15s,border-color .3s,box-shadow .3s;will-change:transform}
+.card:hover{border-color:rgba(34,211,238,.6);box-shadow:0 18px 50px rgba(34,211,238,.12)}
+.card h3{font-size:1.15rem;margin:14px 0 8px}.card p{color:var(--mu);margin:0;font-size:.95rem}
+.ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(34,211,238,.1);color:var(--cy);transition:transform .5s}
+.card:hover .ic{transform:rotate(12deg) scale(1.1)}
+.ic svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card ul{margin:12px 0 0;padding-left:18px;color:var(--mu);font-size:.85rem}.card li{margin:3px 0}button.chip{color:var(--tx);font:inherit;cursor:pointer;padding:7px 16px}.chip.on{border-color:var(--cy);color:var(--cy)}#courses{padding:0}#cs{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--bg)}
+#cs canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#cs::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,var(--bg) 105%);pointer-events:none}
+.cs-head{position:absolute;top:calc(74px + env(safe-area-inset-top,0px));left:0;right:0;z-index:3;text-align:center;padding:0 16px}
+.cs-head .eyebrow{margin-bottom:8px}.cs-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.cs-card{position:absolute;left:50%;top:52%;width:min(90vw,540px);transform:translate(-50%,-50%);z-index:2;text-align:center;opacity:0;visibility:hidden;background:rgba(5,7,13,.62);backdrop-filter:blur(8px);border:1px solid rgba(34,211,238,.35);border-radius:20px;padding:26px 24px;will-change:transform,opacity}
+.cs-card.g2{border-color:rgba(16,185,129,.45)}
+.cs-card h3{font-size:clamp(1.3rem,4.5vw,2rem);margin:6px 0 10px}.cs-card.big h3{font-size:clamp(1.6rem,6vw,2.6rem)}
+.cs-card p{color:var(--mu);margin:0}.cs-card ul{text-align:left;margin:14px auto 0;padding-left:20px;color:#cbd5e1;max-width:420px;font-size:.95rem}.cs-card li{margin:5px 0}
+.cs-dots{position:absolute;right:12px;top:52%;transform:translateY(-50%);z-index:3;display:flex;flex-direction:column;gap:2px}
+.cs-dots button{width:26px;height:22px;background:none;border:0;cursor:pointer;display:grid;place-items:center;padding:0}.cs-dots i{width:7px;height:7px;border-radius:50%;background:#475569;transition:.3s}.cs-dots button.on i{background:var(--cy);transform:scale(1.7)}
+.cs-hint{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;z-index:3;color:var(--mu);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase}
+.wa-wrap{display:flex;align-items:center;justify-content:center;gap:4px}
+.card.wa{text-align:center;flex:1;max-width:300px;padding:22px 20px}.card.wa:hover{border-color:#25D366;box-shadow:0 18px 50px rgba(37,211,102,.2)}.card.wa h3{margin:6px 0 14px}
+.qrbox{display:block;position:relative;width:min(100%,196px);margin:0 auto 16px;background:#fff;padding:10px;border-radius:14px;overflow:hidden;min-height:196px}
+#qr img,#qr canvas{display:block;width:100%!important;height:auto!important}
+.qrbox::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:#25D366;box-shadow:0 0 14px 4px rgba(37,211,102,.7);animation:scan 2.4s ease-in-out infinite}
+@keyframes scan{0%,100%{top:4%}50%{top:94%}}
+.btn.wab{background:#25D366;color:#04210f;border:0;width:100%;text-align:center}
+.toon{position:relative;width:76px;flex:none;background:none;border:0;cursor:pointer;padding:0}.toon svg{width:100%;display:block;overflow:visible}
+.toon .bob{animation:bob 3s ease-in-out infinite;transform-origin:50% 90%}.toon:nth-of-type(2) .bob{animation-delay:-1.4s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.toon.hop svg{animation:hop .6s}@keyframes hop{0%{transform:translateY(0)}35%{transform:translateY(-26px) rotate(-8deg)}70%{transform:translateY(0) rotate(6deg)}100%{transform:none}}
+.toon .eye{transform-box:fill-box;transform-origin:center}.toon.blink .eye{transform:scaleY(.1)}.toon .eye{transition:transform .08s}
+.say{position:absolute;bottom:100%;left:50%;transform:translate(-50%,6px) scale(.7);background:#fff;color:#05070D;font-size:.72rem;font-weight:700;padding:4px 9px;border-radius:99px;white-space:nowrap;opacity:0;transition:.25s;pointer-events:none}.toon.talk .say{opacity:1;transform:translate(-50%,-2px) scale(1)}
+@media(max-width:520px){.toon{width:52px}}
+.toy-wrap{max-width:420px;margin:0 auto 22px}#toy{width:100%;height:180px;display:block;touch-action:none;cursor:grab;border-radius:16px;background:linear-gradient(180deg,transparent,rgba(16,185,129,.07));border-bottom:2px solid rgba(34,211,238,.25)}.rv{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s}.rv.v{opacity:1;transform:none}
+#market{background:linear-gradient(var(--bg),var(--bg2),var(--bg))}
+.mgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin-top:32px}
+@media(max-width:900px){.mgrid{grid-template-columns:1fr}}
+#m3{position:relative;height:420px;border-radius:18px;overflow:hidden;border:1px solid var(--bd);background:#070b14;touch-action:pan-y;cursor:grab}
+#tip{position:absolute;pointer-events:none;background:rgba(5,7,13,.92);border:1px solid var(--cy);border-radius:10px;padding:8px 12px;font-size:.8rem;display:none;z-index:3}
+.badge{display:inline-block;font-size:.7rem;letter-spacing:.1em;padding:3px 10px;border-radius:99px;background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.4)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:14px 0}
+.stats div{background:var(--bg2);border-radius:12px;padding:10px 14px;font-size:.8rem;color:var(--mu)}.stats b{display:block;color:var(--tx);font-size:1.05rem}
+#chart{width:100%;height:170px;display:block}
+.up{color:var(--up)}.dn{color:var(--dn)}
+.note{font-size:.78rem;color:var(--mu);margin-top:10px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.chip{padding:10px 18px;border:1px solid var(--bd);border-radius:99px;background:var(--card);transition:.3s;cursor:default}.chip:hover{border-color:var(--cy);transform:translateY(-3px) scale(1.04);box-shadow:0 8px 24px rgba(34,211,238,.15)}
+#tcar{perspective:1000px;margin-top:36px;display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 4px 20px}
+#tcar .card{min-width:min(320px,80vw);scroll-snap-align:center}
+form{display:grid;gap:12px}
+input,textarea{width:100%;background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:14px;color:var(--tx);font:inherit}
+textarea{min-height:110px}
+label{font-size:.82rem;color:var(--mu)}
+footer{padding:40px 20px calc(40px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--bd);color:var(--mu);font-size:.8rem;text-align:center}
+footer p{max-width:720px;margin:8px auto}
+#load{position:fixed;inset:0;background:var(--bg);z-index:200;display:grid;place-items:center;text-align:center;transition:opacity .7s,visibility .7s}
+#load.h{opacity:0;visibility:hidden}
+#load .bars{display:flex;gap:6px;align-items:flex-end;height:50px;justify-content:center;margin-bottom:22px}
+#load .bars i{width:8px;background:var(--cy);border-radius:2px;animation:b 1s infinite ease-in-out}
+#load .bars i:nth-child(2){animation-delay:.15s;background:var(--em)}#load .bars i:nth-child(3){animation-delay:.3s}#load .bars i:nth-child(4){animation-delay:.45s;background:var(--em)}
+@keyframes b{0%,100%{height:12px}50%{height:50px}}
+#load h4{letter-spacing:.3em;margin:0}#load small{color:var(--mu)}
+.fallback{display:none;position:absolute;inset:0;place-items:center;color:var(--mu);text-align:center;padding:20px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+</style></head>
+<body>
+<div id="load" role="status"><div><div class="bars"><i></i><i></i><i></i><i></i></div><h4>YASHRAJ DELTA HEDGING</h4><small>Loading Market Experience...</small></div></div>
+<div id="prog"></div>
+<nav id="nav"><div class="in"><a href="#home" class="logo">YASHRAJ <b>Δ</b> HEDGING</a>
+<button id="burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+<div class="links" id="links"><a href="#home">Home</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#courses">Courses</a><a href="#contact">Contact</a></div></div></nav>
+
+<main>
+<div id="stage"><div id="cwrap"><canvas class="bg" id="hc" aria-hidden="true"></canvas></div>
+<section id="home"><div class="stick" id="hs"><div class="wrap" id="hw"><div class="eyebrow">Option Pro Track</div>
+<h1>Yashraj <span>Delta Hedging</span></h1>
+<div class="tags">Trading • Options • Market Analysis • Delta Hedging</div>
+<p class="lead">A trader's portfolio built around options, risk management and disciplined market analysis. <span class="ph">[ADD INTRODUCTION FROM SOURCE]</span></p>
+<div class="cta"><a class="btn p mag" href="#experience">Explore My Work</a><a class="btn mag" href="#skills">View Trading Expertise</a><a class="btn mag" href="#contact">Contact Me</a></div></div><div class="hint" id="hint">Scroll to explore ↓</div></div></section>
+
+<section id="about"><div class="wrap">
+<div class="split"><div class="rv"><div class="eyebrow">About &amp; Education</div><h2>Learn the market, step by step.</h2>
+<p class="lead">Beyond trading, Yashraj teaches people how the stock market really works: from first principles and investing basics to options, delta hedging and risk control. The focus is on understanding, discipline and process, not tips or shortcuts.</p>
+<p class="lead"><span class="ph">[ADD BIO]</span> <span class="ph">[ADD YEARS TEACHING]</span> <span class="ph">[ADD MODE: ONLINE / OFFLINE]</span> <span class="ph">[ADD LANGUAGES]</span></p>
+<div class="chips"><span class="chip">Beginner</span><span class="chip">Intermediate</span><span class="chip">Advanced Options</span></div></div>
+<div class="panel rv"><div class="eyebrow">Interactive: option value surface</div>
+<div style="position:relative"><canvas id="sc" style="width:100%;height:280px;display:block;cursor:grab;touch-action:pan-y" aria-label="Interactive 3D option value surface. Drag to rotate."></canvas></div>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:8px 0"><button class="chip on" id="bc" type="button">Call</button><button class="chip" id="bp" type="button">Put</button>
+<label for="vl" style="margin-left:auto">Volatility <b id="vv">25%</b></label><input id="vl" type="range" min="10" max="60" step="1" value="25" style="width:130px" aria-label="Volatility"></div>
+<div class="stats"><div>Strike<b>100</b></div><div>30-day at-the-money value<b id="atm">—</b></div></div>
+<div class="note">Drag to rotate. Width = underlying price (70 to 130), depth = time to expiry, height = option value. Educational Black-Scholes model, not live data.</div></div></div>
+<div class="rv" style="margin-top:56px"><div class="eyebrow">What we teach</div><h3 style="font-size:1.6rem">From stock market basics to options mastery</h3></div>
+<div class="grid" id="teach"></div>
+<div class="panel rv" style="margin-top:24px"><span class="ph">[ADD COURSE / BATCH DETAILS, DURATION &amp; FEES]</span> <p class="note" style="margin-bottom:0">Education only. Nothing taught or shown here is investment advice, and no returns are guaranteed. Markets involve risk.</p></div>
+</div></section></div>
+
+<section id="experience"><div class="wrap"><div class="rv"><div class="eyebrow">Experience</div><h2>Trading focus areas</h2>
+<p class="lead">Topic areas from the brief. <span class="ph">[CONFIRM AGAINST SOURCE]</span></p></div>
+<div class="grid" id="exg"></div>
+<div class="panel rv" style="margin-top:24px"><span class="ph">[ADD EXPERIENCE TIMELINE]</span></div></div></section>
+
+<section id="skills"><div class="wrap"><div class="rv"><div class="eyebrow">Skills</div><h2>Capabilities</h2><p class="lead">No rating percentages are shown, only verified categories. <span class="ph">[CONFIRM LIST]</span></p></div>
+<div class="chips rv"><span class="chip">Stock Trading</span><span class="chip">Options Trading</span><span class="chip">Delta Hedging</span><span class="chip">Market Analysis</span><span class="chip">Technical Analysis</span><span class="chip">Risk Management</span><span class="chip">Portfolio Analysis</span></div></div></section>
+
+<section id="courses" aria-label="Courses"><div id="cs"><canvas id="cc" aria-hidden="true"></canvas>
+<div class="cs-head"><div class="eyebrow">Courses</div><div class="cs-tabs"><button class="chip on" type="button" data-c="0">Option Pro Track</button><button class="chip" type="button" data-c="1">Full Stack Trader</button></div></div>
+<div id="cards"></div><div class="cs-dots" id="dots"></div><div class="cs-hint">Scroll to travel through the course ↓</div></div></section>
+
+<section id="contact"><div class="wrap split"><div class="rv"><div class="eyebrow">Contact</div><h2>Let's talk markets.</h2>
+<p class="lead">Scan the QR code to start a WhatsApp chat. Other ways to reach me: Email <span class="ph">[ADD EMAIL]</span> · Phone <span class="ph">[ADD PHONE]</span> · Social <span class="ph">[ADD LINKS]</span></p></div>
+<div class="wa-wrap rv"><button class="toon" type="button" aria-label="Friendly candle character"><span class="say"></span><svg viewBox="0 0 80 110" aria-hidden="true"><g class="bob"><path d="M40 4V20M40 90V104" stroke="#22C55E" stroke-width="4" stroke-linecap="round"/><rect x="16" y="20" width="48" height="70" rx="12" fill="#22C55E"/><g class="eye"><circle cx="31" cy="46" r="7.5" fill="#fff"/><circle cx="49" cy="46" r="7.5" fill="#fff"/><circle class="pu" cx="31" cy="46" r="3.4" fill="#05070D"/><circle class="pu" cx="49" cy="46" r="3.4" fill="#05070D"/></g><path d="M31 64Q40 74 49 64" stroke="#05070D" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="23" cy="58" r="4" fill="#fb7185" opacity=".6"/><circle cx="57" cy="58" r="4" fill="#fb7185" opacity=".6"/></g></svg></button>
+<div class="card wa"><div class="eyebrow" style="color:#25D366">WhatsApp</div><h3>Scan to chat with me</h3>
+<a class="qrbox" href="https://wa.link/gmebe2" target="_blank" rel="noopener" aria-label="Open WhatsApp chat"><div id="qr"></div></a>
+<a class="btn wab" href="https://wa.link/gmebe2" target="_blank" rel="noopener">Open WhatsApp</a>
+<p class="note" style="margin-top:12px">Point your phone camera at the code, or tap the button.</p></div>
+<button class="toon" type="button" aria-label="Friendly chat bubble character"><span class="say"></span><svg viewBox="0 0 90 90" aria-hidden="true"><g class="bob"><path d="M22 60L14 82L42 64Z" fill="#25D366"/><rect x="8" y="8" width="74" height="58" rx="26" fill="#25D366"/><g class="eye"><circle cx="34" cy="34" r="7.5" fill="#fff"/><circle cx="56" cy="34" r="7.5" fill="#fff"/><circle class="pu" cx="34" cy="34" r="3.4" fill="#05070D"/><circle class="pu" cx="56" cy="34" r="3.4" fill="#05070D"/></g><path d="M35 49Q45 58 55 49" stroke="#05070D" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="24" cy="46" r="4" fill="#fb7185" opacity=".6"/><circle cx="66" cy="46" r="4" fill="#fb7185" opacity=".6"/></g></svg></button></div></div></section>
+</main>
+<footer><div class="toy-wrap"><canvas id="toy" role="img" aria-label="Interactive cartoon toy. Drag and throw it around."></canvas><div class="note">Grab me and throw me around!</div></div><b>YASHRAJ Δ HEDGING</b><p>Information presented on this website is for educational and informational purposes only and does not constitute investment, financial, or trading advice. Market investments involve risk.</p></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches, MOB=innerWidth<820;
+const $=s=>document.querySelector(s);
+const ICONS={chart:'<path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/>',opt:'<circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/>',shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',eye:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',brief:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V4h6v3"/>',book:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/>',trend:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',pie:'<path d="M12 3v9h9a9 9 0 1 1-9-9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/>',tool:'<path d="M14 6l4 4-9 9H5v-4z"/>'};
+const card=(i,t,p)=>`<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24">${ICONS[i]}</svg></div><h3>${t}</h3><p>${p}</p></div>`;
+$('#exg').innerHTML=[['chart','Stock Market Analysis','Reading price action and market structure.'],['opt','Options Trading','Structuring and managing option positions.'],['shield','Delta Hedging','Offsetting directional exposure dynamically.'],['eye','Risk Management','Position sizing and downside awareness.']].map(a=>card(...a)).join('');
+const T=[['book','Market Basics','How the stock market works from the ground up.',['Exchanges, indices &amp; trading sessions','Demat, brokerage &amp; order types','IPOs, dividends, splits &amp; corporate actions']],
+['brief','Fundamental Analysis','Judging the business behind a stock.',['Reading financial statements','Key ratios &amp; valuation basics','Sector &amp; industry analysis']],
+['trend','Technical Analysis','Reading price, trend and momentum.',['Candlesticks &amp; chart patterns','Support, resistance &amp; trend','Moving averages, RSI, MACD &amp; volume']],
+['opt','Options Trading','Calls, puts and how options are priced.',['Premium, strike, expiry &amp; moneyness','Option chain reading','Spreads, straddles, strangles &amp; condors']],
+['shield','Delta Hedging &amp; Greeks','Managing directional exposure.',['Delta, gamma, theta &amp; vega','Delta-neutral positions','Adjustments &amp; hedging logic']],
+['eye','Risk Management','Protecting capital first.',['Position sizing &amp; risk-reward','Stop-loss &amp; exit planning','Drawdown awareness']],
+['pie','Investing &amp; Portfolios','Building wealth over the long term.',['Long-term investing &amp; SIPs','Mutual funds &amp; ETFs','Diversification &amp; asset allocation']],
+['tool','Trading Psychology &amp; Tools','Discipline, process and practice.',['Emotions, FOMO &amp; discipline','Journaling &amp; paper trading','Charting platforms &amp; scanners']]];
+$('#teach').innerHTML=T.map(([i,t,p,l])=>`<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24">${ICONS[i]}</svg></div><h3>${t}</h3><p>${p}</p><ul>${l.map(x=>'<li>'+x+'</li>').join('')}</ul></div>`).join('');
+// delta demo
+
+// nav
+const nav=$('#nav'),bur=$('#burger'),lk=$('#links');
+bur.onclick=()=>{const o=lk.classList.toggle('o');bur.classList.toggle('o',o);bur.setAttribute('aria-expanded',o)};
+lk.addEventListener('click',e=>{if(e.target.tagName==='A'){lk.classList.remove('o');bur.classList.remove('o')}});
+const secs=[...document.querySelectorAll('main section')],as=[...lk.querySelectorAll('a')];
+let tick=false;addEventListener('scroll',()=>{if(tick)return;tick=true;requestAnimationFrame(()=>{tick=false;const y=scrollY;nav.classList.toggle('s',y>40);const h=document.documentElement.scrollHeight-innerHeight;$('#prog').style.width=(y/h*100)+'%';let cur=secs[0].id;secs.forEach(s=>{if(s.offsetTop-160<=y)cur=s.id});as.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))})},{passive:true});
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+// tilt + magnetic
+if(!RM&&matchMedia('(hover:hover)').matches){
+document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(c&&!c.closest('#tcar')||c){const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(700px) rotateY(${x*12}deg) rotateX(${-y*12}deg) translateZ(8px)`}});
+document.addEventListener('pointerout',e=>{const c=e.target.closest&&e.target.closest('.card');if(c)c.style.transform=''});
+document.querySelectorAll('.mag').forEach(b=>{b.onpointermove=e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.2}px,${(e.clientY-r.top-r.height/2)*.3}px)`};b.onpointerleave=()=>b.style.transform=''})}
+
+// ---------- simulated market service (replace with real provider) ----------
+const MarketData={live:false,src:'Demo',async get(){ // VITE_MARKET_API_KEY equivalent: none in static page
+ return {live:false,price:null}}};
+let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+function series(n,start){const a=[];let p=start;for(let i=0;i<n;i++){const o=p,c=o+(rnd()-.48)*4,h=Math.max(o,c)+rnd()*2,l=Math.min(o,c)-rnd()*2;a.push({o,h,l,c,v:Math.round(40+rnd()*100)});p=c}return a}
+
+// ---------- 3D ----------
+function visible(el){let v=true;new IntersectionObserver(e=>v=e[0].isIntersecting).observe(el);return()=>v&&!document.hidden}
+function mkRenderer(cv){const r=new THREE.WebGLRenderer({canvas:cv,antialias:!MOB,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio,MOB?1.5:2));return r}
+function fit(r,cv,cam){const w=cv.clientWidth,h=cv.clientHeight;if(w&&h&&(cv.width!==Math.floor(w*r.getPixelRatio())||cv.height!==Math.floor(h*r.getPixelRatio()))){r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}}
+function candleMesh(c,i,n,sc){const up=c.c>=c.o,col=up?0x22C55E:0xEF4444;const g=new THREE.Group();
+ const body=new THREE.Mesh(new THREE.BoxGeometry(.5,Math.max(.1,Math.abs(c.c-c.o))*sc,.5),new THREE.MeshStandardMaterial({color:col,emissive:col,emissiveIntensity:.25,roughness:.4}));
+ body.position.y=((c.o+c.c)/2)*sc;const wick=new THREE.Mesh(new THREE.BoxGeometry(.05,(c.h-c.l)*sc,.05),new THREE.MeshBasicMaterial({color:col}));wick.position.y=((c.h+c.l)/2)*sc;g.add(body,wick);g.position.x=(i-n/2)*.8;g.userData={c,body};body.userData={c,i};return g}
+let hero;try{
+const cv=$('#hc'),ren=mkRenderer(cv),sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(50,1,.1,100);cam.position.set(3,2.5,11);
+sc.add(new THREE.AmbientLight(0x88aaff,.6));const dl=new THREE.PointLight(0x22d3ee,1.4,60);dl.position.set(5,6,6);sc.add(dl);
+const grid=new THREE.GridHelper(40,40,0x22d3ee,0x16324a);grid.position.y=-3;grid.material.transparent=true;grid.material.opacity=.35;sc.add(grid);
+const grp=new THREE.Group();grp.position.set(MOB?0:3.5,0,-1);sc.add(grp);
+const cm=[];const cs=series(MOB?12:18,0);const base=cs.reduce((a,c)=>a+c.c,0)/cs.length;cs.forEach((c,i)=>{const m=candleMesh({o:c.o-base,h:c.h-base,l:c.l-base,c:c.c-base,v:1},i,cs.length,.35);m.position.y=-.5;cm.push(m);grp.add(m)});
+const pts=[];cs.forEach((c,i)=>pts.push(new THREE.Vector3((i-cs.length/2)*.8,(c.c-base)*.35+1.6,.4)));
+const lg=new THREE.BufferGeometry().setFromPoints(new THREE.CatmullRomCurve3(pts).getPoints(120));grp.add(new THREE.Line(lg,new THREE.LineBasicMaterial({color:0x22d3ee})));
+const N=MOB?50:130,pa=new Float32Array(N*3);for(let i=0;i<N*3;i++)pa[i]=(rnd()-.5)*(i%3===1?12:26);
+const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pa,3));const parts=new THREE.Points(pg,new THREE.PointsMaterial({color:0x7dd3fc,size:.07,transparent:true,opacity:.7}));sc.add(parts);
+let mx=0,my=0;const onm=e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5};addEventListener('pointermove',onm,{passive:true});
+const vis=visible(cv);const clk=new THREE.Clock();
+const stg=$('#stage'),hm=$('#home'),hw=$('#hw'),cw=$('#cwrap'),hint=$('#hint'),cl=v=>Math.max(0,Math.min(1,v));let sp=0,hp=0;
+(function loop(){requestAnimationFrame(loop);if(!vis())return;fit(ren,cv,cam);const t=clk.getElapsedTime()*(RM?0:1);
+ const tot=Math.max(1,stg.offsetHeight-innerHeight),hh=Math.max(1,hm.offsetHeight-innerHeight),k=RM?1:.08;
+ sp+=(cl(scrollY/tot)-sp)*k;hp+=(cl(scrollY/hh)-hp)*k;
+ const e=hp*hp*(3-2*hp),wide=cam.aspect>1.15,hf=hh/tot;
+ cm.forEach((m,i)=>{const w=RM?0:Math.sin(sp*Math.PI*5-i*.45);m.scale.y=1+.55*w*Math.sin(sp*Math.PI);m.position.z=Math.sin(i*.6+sp*9)*.5*Math.sin(sp*Math.PI)});
+ lg.setDrawRange(0,Math.floor(121*(.3+.7*Math.min(1,sp*3))));
+ grp.position.x=wide?3.5*(1-e):0;grp.position.y=(wide?0:-.3)+e*.2;
+ grp.rotation.y=t*.08+sp*Math.PI*2.6+mx*.4;grp.rotation.x=e*.35+my*.15;
+ const z0=wide?11:Math.min(26,11+(1.15-cam.aspect)*22);
+ cam.position.set((wide?3*(1-e):0)+mx*(RM?0:1.2),2.5-my*(RM?0:.8)-e*.8,z0-e*(wide?3.5:z0*.2));cam.lookAt(0,0,0);
+ hw.style.opacity=Math.max(0,1-hp*2.2);hw.style.transform=`translateY(${-hp*60}px)`;hw.style.visibility=hp>.5?'hidden':'visible';hint.style.opacity=Math.max(0,1-hp*5);
+ cw.style.setProperty('--ov',Math.max(0,1-hp*1.8));cw.style.opacity=sp<=hf?1:1-.65*cl((sp-hf)/(1-hf)*1.5);
+ if(!wide)cv.style.height=(48+52*e)+'svh';
+ ren.render(sc,cam)})();
+}catch(e){console.warn('3D hero unavailable',e)}
+
+// option surface
+try{
+const cv=$('#sc'),ren=mkRenderer(cv),sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(45,1,.1,100);cam.position.set(0,4.5,10);
+const NX=32,NT=16,K=100,r0=.05;let call=true,vol=.25;
+const Nf=x=>{const t=1/(1+.2316419*Math.abs(x)),p=.3989423*Math.exp(-x*x/2)*t*(.3193815+t*(-.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));return x>0?1-p:p};
+const bs=(S,T,v,c)=>{const q=v*Math.sqrt(T),d1=(Math.log(S/K)+(r0+v*v/2)*T)/q,d2=d1-q,kd=K*Math.exp(-r0*T);return c?S*Nf(d1)-kd*Nf(d2):kd*Nf(-d2)-S*Nf(-d1)};
+const geo=new THREE.PlaneGeometry(8,6,NX,NT);geo.rotateX(-Math.PI/2);const n=geo.attributes.position.count;geo.setAttribute('color',new THREE.BufferAttribute(new Float32Array(n*3),3));
+const g=new THREE.Group();g.add(new THREE.Mesh(geo,new THREE.MeshBasicMaterial({vertexColors:true,side:THREE.DoubleSide,transparent:true,opacity:.92})),new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:0x22d3ee,wireframe:true,transparent:true,opacity:.22})));g.position.y=-.8;sc.add(g);
+const grid=new THREE.GridHelper(10,10,0x22d3ee,0x16324a);grid.position.y=-.82;sc.add(grid);
+const c1=new THREE.Color(0x3b82f6),c2=new THREE.Color(0x22C55E),c3=new THREE.Color(0xEF4444),cc=new THREE.Color();
+function upd(){const p=geo.attributes.position,c=geo.attributes.color;for(let j=0;j<=NT;j++)for(let i=0;i<=NX;i++){const k=j*(NX+1)+i,S=70+60*i/NX,T=.02+.48*j/NT,v=Math.max(0,bs(S,T,vol,call));p.setY(k,v*.1);cc.copy(c1).lerp(call?c2:c3,Math.min(1,v/25));c.setXYZ(k,cc.r,cc.g,cc.b)}
+ p.needsUpdate=c.needsUpdate=true;$('#atm').textContent='₹'+bs(100,30/365,vol,call).toFixed(2)}
+upd();
+$('#bc').onclick=()=>{call=true;$('#bc').classList.add('on');$('#bp').classList.remove('on');upd()};
+$('#bp').onclick=()=>{call=false;$('#bp').classList.add('on');$('#bc').classList.remove('on');upd()};
+$('#vl').oninput=e=>{vol=e.target.value/100;$('#vv').textContent=e.target.value+'%';upd()};
+let drag=false,lx=0,ry=-.6;
+cv.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;cv.setPointerCapture(e.pointerId);cv.style.cursor='grabbing'});
+cv.addEventListener('pointerup',()=>{drag=false;cv.style.cursor='grab'});
+cv.addEventListener('pointermove',e=>{if(drag){ry+=(e.clientX-lx)*.01;lx=e.clientX}});
+const vis=visible(cv);
+(function loop(){requestAnimationFrame(loop);if(!vis())return;fit(ren,cv,cam);if(!drag&&!RM)ry+=.004;g.rotation.y=ry;cam.lookAt(0,.4,0);ren.render(sc,cam)})();
+}catch(e){console.warn('surface unavailable',e)}
+// courses tunnel
+const COURSES=[{name:'OPTION PRO TRACK',desc:'[ADD COURSE DESCRIPTION]',mods:[0,1,2,3,4].map(i=>({t:'[ADD MODULE '+(i+1)+' TITLE]',p:['[ADD MODULE POINT]','[ADD MODULE POINT]','[ADD MODULE POINT]']}))},
+{name:'Full Stack Trader – From Basics to Pro',desc:'[ADD COURSE DESCRIPTION]',mods:[0,1,2,3,4].map(i=>({t:'[ADD MODULE '+(i+1)+' TITLE]',p:['[ADD MODULE POINT]','[ADD MODULE POINT]','[ADD MODULE POINT]']}))}];
+(function(){
+const ph=x=>/^\[/.test(x)?'<span class="ph">'+x+'</span>':x;
+const items=[],cStart=[];COURSES.forEach((c,ci)=>{cStart.push(items.length);items.push({ci,c});c.mods.forEach((m,mi)=>items.push({ci,m,mi}))});
+const N=items.length,SP=14,L=(N-1)*SP,sec=$('#courses'),cardsEl=$('#cards'),dots=$('#dots');
+sec.style.height=(N*55+100)+'vh';
+cardsEl.innerHTML=items.map(it=>it.c?`<div class="cs-card big${it.ci?' g2':''}"><div class="eyebrow">Course 0${it.ci+1}</div><h3>${it.c.name}</h3><p>${ph(it.c.desc)}</p><p style="margin-top:10px">${ph('[ADD DURATION / FEES / MODE]')}</p></div>`:`<div class="cs-card${it.ci?' g2':''}"><div class="eyebrow">Module ${String(it.mi+1).padStart(2,'0')}</div><h3>${ph(it.m.t)}</h3><ul>${it.m.p.map(x=>'<li>'+ph(x)+'</li>').join('')}</ul></div>`).join('');
+const cards=[...cardsEl.children];
+function go(i){const top=sec.getBoundingClientRect().top+scrollY;scrollTo({top:top+i/(N-1)*(sec.offsetHeight-innerHeight),behavior:RM?'auto':'smooth'})}
+dots.innerHTML=items.map((_,i)=>`<button type="button" aria-label="Go to step ${i+1}" data-i="${i}"><i></i></button>`).join('');
+dots.onclick=e=>{const b=e.target.closest('button');if(b)go(+b.dataset.i)};
+document.querySelectorAll('.cs-tabs .chip').forEach(b=>b.onclick=()=>go(cStart[+b.dataset.c]));
+const tabs=[...document.querySelectorAll('.cs-tabs .chip')],db=[...dots.children];
+let draw=null,sp=0,last=-1;const vis=visible(sec),cl=v=>Math.max(0,Math.min(1,v));
+try{
+const cv=$('#cc'),ren=mkRenderer(cv),sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(60,1,.1,200);sc.fog=new THREE.Fog(0x05070D,8,60);
+const c1=0x22d3ee,c2=0x10b981,hex=new Float32Array(18);for(let k=0;k<6;k++){hex[k*3]=Math.cos(k*Math.PI/3);hex[k*3+1]=Math.sin(k*Math.PI/3)}
+const hg=new THREE.BufferGeometry();hg.setAttribute('position',new THREE.BufferAttribute(hex,3));
+const col=z=>(-z/SP>=cStart[1]-.5)?c2:c1,rings=[];
+for(let z=0;z>-(L+30);z-=3){const m=new THREE.LineLoop(hg,new THREE.LineBasicMaterial({color:col(z),transparent:true,opacity:.6})),r=5+Math.sin(z*.15)*1.2;m.scale.set(r,r,1);m.position.z=z;m.userData.i=rings.length;rings.push(m);sc.add(m)}
+const gates=items.map((it,i)=>{const g=new THREE.Mesh(new THREE.TorusGeometry(it.c?7.2:6.2,it.c?.12:.05,6,6),new THREE.MeshBasicMaterial({color:it.c?0xffffff:col(-i*SP)}));g.position.z=-i*SP-2;sc.add(g);return g});
+const NP=MOB?140:380,pa=new Float32Array(NP*3);for(let i=0;i<NP;i++){const a=Math.random()*6.283,r=1.5+Math.random()*4;pa[i*3]=Math.cos(a)*r;pa[i*3+1]=Math.sin(a)*r;pa[i*3+2]=-Math.random()*(L+30)}
+const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pa,3));sc.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0x9be7ff,size:.09,transparent:true,opacity:.8})));
+let mx=0,my=0;addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5},{passive:true});
+draw=(t,cur,vel)=>{fit(ren,cv,cam);cam.position.set(mx*.7,-my*.5,-cur*SP);cam.rotation.set(-my*.06,-mx*.1,RM?0:cur/(N-1)*Math.PI*1.6);
+ cam.fov=60+(RM?0:Math.min(32,vel*500));cam.updateProjectionMatrix();
+ rings.forEach(m=>{m.rotation.z=m.userData.i*.12+t*.1+cur*.35});gates.forEach((g,i)=>g.rotation.z=i*.5+t*.2);ren.render(sc,cam)};
+}catch(e){console.warn('tunnel 3D unavailable',e)}
+const clk=new THREE.Clock();
+(function loop(){requestAnimationFrame(loop);if(!vis())return;
+ const r=sec.getBoundingClientRect(),tg=cl(-r.top/Math.max(1,r.height-innerHeight)),prev=sp;sp+=(tg-sp)*(RM?1:.09);const cur=sp*(N-1);
+ cards.forEach((c,i)=>{const u=cur-i,o=1-Math.min(1,Math.abs(u)/.7),s=u<0?1+u*.45:1+u*1.4;c.style.opacity=o;c.style.visibility=o<.02?'hidden':'visible';c.style.transform=`translate(-50%,-50%) scale(${Math.max(.3,s)})`});
+ const a=Math.round(cur);if(a!==last){last=a;db.forEach((b,i)=>b.classList.toggle('on',i===a));const ci=items[a].ci;tabs.forEach((b,i)=>b.classList.toggle('on',i===ci))}
+ if(draw)draw(clk.getElapsedTime()*(RM?0:1),cur,Math.abs(sp-prev))})();
+})();
+// QR + cartoons
+(function(){const q=$('#qr'),url='https://wa.link/gmebe2';
+try{if(!window.QRCode)throw 0;new QRCode(q,{text:url,width:256,height:256,colorDark:'#05070D',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M})}catch(e){q.innerHTML='<div style="color:#05070D;font-size:.8rem;padding:60px 8px;text-align:center">QR unavailable. Use the button below.</div>'}
+const T=[...document.querySelectorAll('.toon')],say=['Hi! 👋','Scan me!','Let\'s trade!','Bull run! 🐂','Chat with us!'];let px=0,py=0,raf=0;
+function look(){raf=0;T.forEach(t=>{const r=t.getBoundingClientRect(),dx=px-(r.left+r.width/2),dy=py-(r.top+r.height/2),d=Math.hypot(dx,dy)||1,k=Math.min(1,d/150)*2.4;t.querySelectorAll('.pu').forEach(p=>p.style.transform=`translate(${dx/d*k}px,${dy/d*k}px)`)})}
+addEventListener('pointermove',e=>{px=e.clientX;py=e.clientY;if(!raf)raf=requestAnimationFrame(look)},{passive:true});
+T.forEach(t=>{t.onclick=()=>{t.classList.remove('hop');void t.offsetWidth;t.classList.add('hop','talk');t.querySelector('.say').textContent=say[Math.floor(Math.random()*say.length)];setTimeout(()=>t.classList.remove('talk'),1600)};t.onmouseenter=()=>{t.querySelector('.say').textContent=say[1];t.classList.add('talk')};t.onmouseleave=()=>t.classList.remove('talk')});
+setInterval(()=>{if(document.hidden)return;const t=T[Math.floor(Math.random()*T.length)];t.classList.add('blink');setTimeout(()=>t.classList.remove('blink'),150)},2600);
+})();
+// physics toy
+(function(){const cv=$('#toy');if(!cv)return;const cx=cv.getContext('2d'),H=180,fl=H-14;let W=0,dpr=1,P=[],C=[],I={},drag=null,down=null,mx=0,my=0,say='',sayT=0,hopT=performance.now()+3000,last=0,acc=0;
+const SAY=['Hi! 👋','Whee!','Throw me!','Bull run! 🐂','Buy low!','Ouch!'];
+function init(){W=cv.clientWidth||300;dpr=Math.min(devicePixelRatio||1,2);cv.width=W*dpr;cv.height=H*dpr;P=[];C=[];I={};const x0=W/2,fy=fl;
+ const add=(n,x,y)=>{I[n]=P.length;P.push({x,y,px:x,py:y})};
+ add('H',x0,fy-120);add('LS',x0-12,fy-100);add('RS',x0+12,fy-100);add('LP',x0-9,fy-56);add('RP',x0+9,fy-56);add('LE',x0-14,fy-78);add('LH',x0-16,fy-58);add('RE',x0+14,fy-78);add('RH',x0+16,fy-58);add('LK',x0-9,fy-30);add('LF',x0-9,fy-4);add('RK',x0+9,fy-30);add('RF',x0+9,fy-4);
+ const L=(a,b,k)=>{const A=P[I[a]],B=P[I[b]];C.push([A,B,Math.hypot(A.x-B.x,A.y-B.y),k||1])};
+ [['H','LS'],['H','RS'],['LS','RS'],['LP','RP'],['LS','LP'],['RS','RP'],['LS','RP'],['RS','LP'],['LS','LE'],['LE','LH'],['RS','RE'],['RE','RH'],['LP','LK'],['LK','LF'],['RP','RK'],['RK','RF']].forEach(c=>L(...c));L('LP','LF',.25);L('RP','RF',.25)}
+const g=n=>P[I[n]];
+function step(){P.forEach(p=>{if(p===drag)return;const vx=(p.x-p.px)*.992,vy=(p.y-p.py)*.992;p.px=p.x;p.py=p.y;p.x+=vx;p.y+=vy+.55});
+ const hm={x:(g('LP').x+g('RP').x)/2,y:(g('LP').y+g('RP').y)/2};
+ [['LS',-12],['RS',12]].forEach(([n,o])=>{const p=g(n);if(p!==drag){p.y+=(hm.y-44-p.y)*.07;p.x+=(hm.x+o-p.x)*.03}});
+ const h=g('H');if(h!==drag)h.y+=(hm.y-66-h.y)*.05;
+ if(drag){drag.px=drag.x;drag.py=drag.y;drag.x=mx;drag.y=my}
+ for(let it=0;it<6;it++){C.forEach(([a,b,l,k])=>{const wa=a===drag?0:1,wb=b===drag?0:1,w=wa+wb;if(!w)return;const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1,f=(d-l)/d*k;a.x+=dx*f*wa/w;a.y+=dy*f*wa/w;b.x-=dx*f*wb/w;b.y-=dy*f*wb/w});
+  P.forEach(p=>{if(p.y>fl){p.y=fl;p.x+=(p.px-p.x)*.25}if(p.y<8)p.y=8;if(p.x<8)p.x=8;if(p.x>W-8)p.x=W-8})}}
+function hop(){P.forEach(p=>p.py=p.y+9)}
+function talk(){say=SAY[Math.floor(Math.random()*SAY.length)];sayT=performance.now()+1500}
+function draw(now){cx.setTransform(dpr,0,0,dpr,0,0);cx.clearRect(0,0,W,H);cx.lineCap=cx.lineJoin='round';
+ const hmx=(g('LP').x+g('RP').x)/2;cx.fillStyle='rgba(0,0,0,.35)';cx.beginPath();cx.ellipse(hmx,fl+9,32,5,0,0,7);cx.fill();
+ const seg=(a,b,w,c)=>{cx.strokeStyle=c;cx.lineWidth=w;cx.beginPath();cx.moveTo(g(a).x,g(a).y);cx.lineTo(g(b).x,g(b).y);cx.stroke()},dot=(n,r,f,s)=>{cx.fillStyle=f;cx.strokeStyle=s||f;cx.lineWidth=2;cx.beginPath();cx.arc(g(n).x,g(n).y,r,0,7);cx.fill();cx.stroke()};
+ [['LP','LK'],['LK','LF'],['RP','RK'],['RK','RF']].forEach(a=>seg(a[0],a[1],9,'#1e3a8a'));dot('LF',7,'#f8fafc','#22d3ee');dot('RF',7,'#f8fafc','#22d3ee');
+ cx.fillStyle=cx.strokeStyle='#10b981';cx.lineWidth=10;cx.beginPath();['LS','RS','RP','LP'].forEach((n,i)=>i?cx.lineTo(g(n).x,g(n).y):cx.moveTo(g(n).x,g(n).y));cx.closePath();cx.fill();cx.stroke();
+ [['LS','LE'],['LE','LH'],['RS','RE'],['RE','RH']].forEach(a=>seg(a[0],a[1],8,'#34d399'));dot('LH',6.5,'#fff','#cbd5e1');dot('RH',6.5,'#fff','#cbd5e1');
+ const h=g('H'),sx=(g('LS').x+g('RS').x)/2,sy=(g('LS').y+g('RS').y)/2,ang=Math.atan2(h.x-sx,sy-h.y);
+ cx.save();cx.translate(h.x,h.y);cx.rotate(ang);cx.fillStyle='#fcd9a8';cx.strokeStyle='#d9a76a';cx.lineWidth=2;cx.beginPath();cx.arc(0,0,17,0,7);cx.fill();cx.stroke();
+ cx.fillStyle='#1f2937';cx.beginPath();cx.arc(0,-1,17.5,Math.PI*1.04,Math.PI*1.96);cx.lineTo(8,-9);cx.lineTo(0,-13);cx.lineTo(-8,-9);cx.closePath();cx.fill();
+ const blink=now%3200<120,dx=mx-h.x,dy=my-h.y,dd=Math.hypot(dx,dy)||1,ox=dx/dd*1.8,oy=dy/dd*1.8;
+ [-6.5,6.5].forEach(x=>{if(blink){cx.strokeStyle='#05070D';cx.lineWidth=2;cx.beginPath();cx.moveTo(x-3.5,1);cx.lineTo(x+3.5,1);cx.stroke()}else{cx.fillStyle='#fff';cx.beginPath();cx.arc(x,1,4.6,0,7);cx.fill();cx.fillStyle='#05070D';cx.beginPath();cx.arc(x+ox,1+oy,2.3,0,7);cx.fill()}});
+ cx.fillStyle='rgba(251,113,133,.55)';[-11,11].forEach(x=>{cx.beginPath();cx.arc(x,8,3,0,7);cx.fill()});
+ cx.strokeStyle=cx.fillStyle='#05070D';cx.lineWidth=2;cx.beginPath();if(drag){cx.ellipse(0,10,3.5,4.2,0,0,7);cx.fill()}else{cx.arc(0,6,5,.15*Math.PI,.85*Math.PI);cx.stroke()}cx.restore();
+ if(now<sayT){cx.font='700 12px system-ui,sans-serif';const w=cx.measureText(say).width+16,bx=Math.max(4,Math.min(W-w-4,h.x-w/2)),by=Math.max(4,h.y-52);cx.fillStyle='#fff';cx.beginPath();cx.roundRect?cx.roundRect(bx,by,w,22,11):cx.rect(bx,by,w,22);cx.fill();cx.fillStyle='#05070D';cx.fillText(say,bx+8,by+15)}}
+addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top},{passive:true});
+cv.addEventListener('pointerdown',e=>{const r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;let b=null,bd=34;P.forEach(p=>{const d=Math.hypot(p.x-mx,p.y-my);if(d<bd){bd=d;b=p}});if(b){drag=b;down={t:performance.now(),x:mx,y:my};cv.setPointerCapture(e.pointerId);cv.style.cursor='grabbing'}});
+const up=()=>{if(drag&&down&&performance.now()-down.t<250&&Math.hypot(mx-down.x,my-down.y)<8){hop();talk()}drag=null;down=null;cv.style.cursor='grab'};
+cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+init();let rw=W;new ResizeObserver(()=>{if(Math.abs(cv.clientWidth-rw)>4){rw=cv.clientWidth;init()}}).observe(cv);
+const vis=visible(cv);
+(function loop(now){requestAnimationFrame(loop);if(!vis()){last=0;return}if(!last)last=now;acc+=Math.min(50,now-last);last=now;while(acc>=16.67){step();acc-=16.67}
+ if(!RM&&!drag&&now>hopT){hop();hopT=now+4500+Math.random()*3500}draw(now)})(performance.now());
+})();
+addEventListener('load',()=>setTimeout(()=>$('#load').classList.add('h'),RM?100:900));
+setTimeout(()=>$('#load').classList.add('h'),4000);
+</script></body></html>
